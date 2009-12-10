@@ -111,19 +111,74 @@ function main( aRequest ) {
   return "Hello World";
 }
 </pre>
+Develop locally on your laptop. No need to
+restart local server while developing.
 </div>
 
 <div class="slide">
-<h1>Sammy and bundled libraries</h1>
+<h1>Deployment</h1>
+<p>When you are ready, go to <a href="http://smart.joyent.com/">smart.joyent.com</a>,
+create a new application.</p>
+<p>Check your application into a local git repo, add Smart as a git remote.</p>
+</div>
+
+<div class="slide">
+<h1>Deployment (cont'd)</h1>
+<p>To deploy, "git push".</p>
+<p>That's it.</p>
+</div>
+
+<div class="slide">
+<h1>Bundled libraries</h1>
 <pre>
 system.use("com.joyent.Sammy");
 
 GET("/", function() {
-  return redirect("/index.html");
+	return template("index.html");
 );
-
-
 </pre>
+See the page: <a href="/">/</a>
+</div>
+
+<div class="slide">
+<h1>Bundled libraries (cont'd)</h1>
+<pre>
+system.use("com.joyent.Resource");
+
+var Name = new Resource('name');
+ 
+GET("/demo", function() {
+  try {
+    this.savedName = Name.search({key: "demo"})[0];
+  } catch(e) {
+    this.savedName = { name: "no name" };
+  }
+  return &lt;form method="post"&gt;
+    Hello, &lt;input type="text" name="name" value={this.savedName.name} /&gt;.
+    &lt;input type="submit" /&gt;
+  &lt;/form&gt;;
+});
+</pre>
+See the page: <a href="/demo">/demo</a>
+</div>
+
+<div class="slide">
+<h1>Bundled libraries (cont'd)</h1>
+<pre>
+POST("/demo", function() {
+  try {
+    this.savedName = Name.search({key: "demo"})[0];
+  } catch(e) {
+    this.savedName = new Name();
+  }
+  this.savedName.key = "demo";
+  this.savedName.name = this.request.body.name;
+  this.savedName.save();
+  this.response.code = 201;
+  return redirect('/demo');
+});
+</pre>
+See the page: <a href="/demo">/demo</a>
 </div>
 
 <div class="slide">
@@ -136,11 +191,35 @@ GET("/", function() {
 <div class="slide">
 <h1>Watch</h1>
 <ul>
-<li><a href="">smart.joyent.com</a></li>
+<li><a href="http://blip.tv/file/2386711">blip.tv - James Duncan at JSConf 2009</a></li>
 </ul>
 </div>
 
+<div class="slide">
+<h1>Learn</h1>
+<ul>
+<li><a href="http://becoming.smart.joyent.com/">becoming.smart.joyent.com</a></li>
+</ul>
+</div>
 
+<div class="slide">
+<h1>Participate</h1>
+<ul>
+<li><a href="http://discuss.joyent.com/viewforum.php?id=78">Joyent Community - Smart Platform</a></li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Fork</h1>
+<ul>
+<li><a href="http://github.com/joyent">github.com/joyent</a></li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>The End</h1>
+<h2>Questions?</h2>
+</div>
 
 </div>
 
