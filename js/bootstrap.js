@@ -26,7 +26,8 @@ POST("/demo", function() {
     this.savedName = new Name();
   }
   this.savedName.key = "demo";
-  this.savedName.name = this.request.body.name;
+  // this.savedName.name = this.request.body.name;
+  this.savedName.name = "saving disabled for security reasons";
   this.savedName.save();
   this.response.code = 201;
   return redirect('/demo');
