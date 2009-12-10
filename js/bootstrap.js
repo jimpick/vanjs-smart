@@ -8,11 +8,11 @@ GET("/", function() {
 var Name = new Resource('name');
 
 GET("/demo", function() {
-  /* try {
+  try {
     this.savedName = Name.search({key: "demo"})[0];
-  } catch(e) { */
+  } catch(e) {
     this.savedName = { name: "no name" };
-  // }
+  }
   return <form method="post">
     Hello, <input type="text" name="name" value={this.savedName.name} />. 
     <input type="submit" />
@@ -20,11 +20,11 @@ GET("/demo", function() {
 });
 
 POST("/demo", function() {
-  /*try {
+  try {
     this.savedName = Name.search({key: "demo"})[0];
-  } catch(e) { */
+  } catch(e) {
     this.savedName = new Name();
-  // }
+  }
   this.savedName.key = "demo";
   this.savedName.name = this.request.body.name;
   this.savedName.save();
