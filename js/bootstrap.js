@@ -14,7 +14,6 @@ GET("/demo", function() {
   } else {
     this.saved_name = saved_names[0];
   }
-  system.console.log("jim: " + uneval(this.saved_name));
   return <form method="post">
     Hello, <input type="text" name="name" value={this.saved_name.name} />. 
     <input type="submit" />
